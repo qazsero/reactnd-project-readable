@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import {Route, NavLink} from 'react-router-dom'
+import {Route, NavLink, Switch} from 'react-router-dom'
 import PostList from '../containers/PostList'
-import PostAdd from '../components/PostAdd'
-import PostDetail from '../components/PostDetail'
+import PostAdd from '../containers/PostAdd'
+import PostDetail from '../containers/PostDetail'
 import 'bulma/css/bulma.css'
 import '../App.css'
 
@@ -51,12 +51,12 @@ class App extends Component {
           </section>
           <div className="section">
             <div className="container">
-
-              <Route path="/" exact component={PostList} />
-              <Route path="/category/:catPath" component={PostList} />
-              <Route path="/post/add" component={PostAdd} />
-              <Route path="/post/:postid" component={PostDetail} />
-
+              <Switch>
+                <Route path="/" exact component={PostList} />
+                <Route path="/category/:catPath" component={PostList} />
+                <Route path="/post/add" component={PostAdd} />
+                <Route path="/post/:postid" component={PostDetail} />
+              </Switch>
             </div>
           </div>
       </div>

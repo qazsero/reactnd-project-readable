@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Moment from 'react-moment'
+import {Link} from 'react-router-dom'
 import FontAwesome from 'react-fontawesome'
 
 class PostRow extends Component {
@@ -15,17 +16,13 @@ class PostRow extends Component {
             </div>
             <div className="media-content">
               <div className="content">
-                <p>
-                  <strong>{this.props.post.author}</strong>. <FontAwesome name='clock-o' /> <Moment fromNow unix>{this.props.post.timestamp.toString().slice(0, -3)}</Moment>
-                  <br />
-                  {this.props.post.title}
-                </p>
+                <Link to={`/post/${this.props.post.id}`}>
+                  <h4>{this.props.post.title}</h4>
+                </Link>
               </div>
               <nav className="level is-mobile">
                 <div className="level-left">
-                  <a className="level-item">
-                    <span className="icon is-small"><i className="fa fa-reply"></i></span>
-                  </a>
+                  <span className="level-item"><FontAwesome name='clock-o' /></span><span className="level-item"><Moment fromNow unix>{this.props.post.timestamp.toString().slice(0, -3)}</Moment></span><span className="level-item">by</span><span className="level-item"><strong>{this.props.post.author}</strong></span>
                   <a className="level-item">
                     <span className="icon is-small" onClick={() => this.props.upvote(this.props.post.id)} ><FontAwesome name='thumbs-o-up' /></span>
                   </a>

@@ -2,20 +2,21 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import PostRow from '../components/PostRow'
-import {getPosts,votePosPost,voteNegPost,getCategories,setPostOrder} from '../actions/index'
+import {getPosts,votePosPost,voteNegPost,getCategories,setPostOrder} from '../actions'
 import {bindActionCreators} from 'redux'
 
 class PostList extends Component {
 
   componentDidMount(){
-    this.props.getPosts()
-    this.props.getCategories()
+    if(this.props.posts.length === 0){this.props.getPosts()}
+    if(this.props.categories.length === 0){this.props.getCategories()}
   }
 
 
   render(){
 
     let orderedPostList //La lista final filtrada y ordenada
+
 
     //Alimentamos el objeto con el estado y filtramos por eliminados
     orderedPostList = this.props.posts.filter((p) => p.deleted !== true)
@@ -25,19 +26,19 @@ class PostList extends Component {
         case 'votes':
           orderedPostList.sort(
             function(a, b){
-                return b.voteScore - a.voteScore;
+                return b.voteScore - a.voteScore
             })
           break;
         case 'dateAsc':
           orderedPostList.sort(
             function(a, b){
-              return b.timestamp - a.timestamp;
+              return b.timestamp - a.timestamp
             })
           break
         case 'dateDesc':
           orderedPostList.sort(
             function(a, b){
-              return a.timestamp - b.timestamp;
+              return a.timestamp - b.timestamp
             })
           break
 
@@ -77,7 +78,7 @@ class PostList extends Component {
                       </div>
 
                       {/* Lista de Posts */}
-                      {orderedPostList.map((post) => (<PostRow key={post.title} post={post} upvote={this.props.votePosPost} downvote={this.props.voteNegPost} />))}
+                      {orderedPostList.map((post, index) => (<PostRow key={index} post={post} upvote={this.props.votePosPost} downvote={this.props.voteNegPost} />))}
 
                     </div>
                   </div>
