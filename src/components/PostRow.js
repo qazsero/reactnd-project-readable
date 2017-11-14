@@ -16,7 +16,7 @@ class PostRow extends Component {
             </div>
             <div className="media-content">
               <div className="content">
-                <Link to={`/post/${this.props.post.id}`}>
+                <Link to={`/${this.props.post.category}/${this.props.post.id}`}>
                   <h4>{this.props.post.title}</h4>
                 </Link>
               </div>

@@ -20,9 +20,7 @@ class PostAdd extends Component {
     if(this.props.categories.length === 0){this.props.getCategories()}
   }
 
-  renderInput(field){
-
-    return(
+  renderInput = (field) => (
       <div className="field">
         <div className="control">
           <input {...field.input} className="input" type="text" placeholder={field.placeholder} />
@@ -31,11 +29,9 @@ class PostAdd extends Component {
           {field.meta.touched ? field.meta.error: ''}
         </p>
       </div>
-    )
-  }
+  )
 
-  renderTextArea(field){
-    return(
+  renderTextArea = (field) => (
       <div className="field">
         <div className="control">
           <textarea {...field.input} className="textarea" placeholder={field.placeholder}></textarea>
@@ -44,22 +40,22 @@ class PostAdd extends Component {
           {field.meta.touched ? field.meta.error: ''}
         </p>
       </div>
-    )
-  }
+  )
 
-  renderSelect(field){
-    return(
-      <div>
-      <select name="category" >
-        <option>Choose a Category</option>
-        {this.props.categories.map((c, index) => (<option key={index} value={c.path}>{c.name}</option>))}
-      </select>
-      <p className="help is-danger">
-        {field.meta.touched ? field.meta.error: ''}
-      </p>
+  renderSelect = ({ input, label, type, meta: { touched, error }, children }) => (
+      <div className="field">
+        <div className="control">
+          <div className="select">
+            <select {...input}>
+              {children}
+            </select>
+          </div>
+        </div>
+        <p className="help is-danger">
+          {touched ? error: ''}
+        </p>
       </div>
-    )
-  }
+)
 
   onSubmit(values) {
     values.timestamp = Date.now()
@@ -98,15 +94,10 @@ class PostAdd extends Component {
             </div>
             <div className="field-body">
               <div className="field is-narrow">
-                <div className="control">
-                  <div className="select is-fullwidth">
-
-                    <select name="category" value={this.state.category} onChange={(event) => this.setState({category: event.target.value})} >
-                      <option>Choose a Category</option>
-                      {this.props.categories.map((c, index) => (<option key={index} value={c.path}>{c.name}</option>))}
-                    </select>
-                  </div>
-                </div>
+                <Field name="category" component={this.renderSelect}>
+                  <option value="">Select category</option>
+                  {this.props.categories.map((c, index) => (<option key={index} value={c.path}>{c.name}</option>))}
+                </Field>
               </div>
             </div>
           </div>

@@ -55,7 +55,7 @@ class App extends Component {
                 <Route path="/" exact component={PostList} />
                 <Route path="/category/:catPath" component={PostList} />
                 <Route path="/post/add" component={PostAdd} />
-                <Route path="/post/:postid" component={PostDetail} />
+                <Route path="/:category/:postid" component={PostDetail} />
               </Switch>
             </div>
           </div>
