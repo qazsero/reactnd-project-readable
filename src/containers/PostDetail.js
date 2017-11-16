@@ -1,27 +1,43 @@
 import React, {Component} from 'react'
 import Moment from 'react-moment'
 import {connect} from 'react-redux'
+import {Field, reduxForm} from 'redux-form'
 import {Link} from 'react-router-dom'
 import FontAwesome from 'react-fontawesome'
-import {getPost, deletePost,votePosPost,voteNegPost} from '../actions'
+import crypto from 'crypto'
+import {getPost, deletePost,votePosPost,voteNegPost, getComments, createComment, editComment, deleteComment} from '../actions'
 
 class PostDetail extends Component {
 
   componentDidMount(){
     let postid = this.props.match.params.postid
     this.props.getPost(postid)
+    this.props.getComments(postid)
   }
 
-  onDeleteClick() {
+  onPostDeleteClick = () => {
     const {postid} = this.props.match.params
     this.props.deletePost(postid, () => {
       this.props.history.push('/')
     })
   }
 
-  render(){
+  onCommentDeleteClick = (commid) => {
+    this.props.deleteComment(commid)
+  }
 
-    var formatedTimeStamp = 0
+  onCommentSubmit = (values) => {
+    values.timestamp = Date.now()
+    values.id = crypto.randomBytes(16).toString("hex")
+    values.parentId = this.props.match.params.postid
+
+    //console.log(values)
+    this.props.createComment(values)
+  }
+
+  render(){
+    const { handleSubmit } = this.props;
+    let formatedTimeStamp = 0
     if(typeof this.props.post.timestamp === 'number') formatedTimeStamp = this.props.post.timestamp.toString().slice(0,-3)
 
     return(
@@ -34,7 +50,7 @@ class PostDetail extends Component {
           </header>
           <div className="card-content">
             <div className="columns">
-              <div className="column is-1 text-center">
+              <div className="column is-1 text-center" style={{borderRight:"1px solid #DBDBDB"}}>
                 <h3 className="is-size-4" >{this.props.post.voteScore}</h3>
                 <p>votes</p>
                 <nav className="level is-mobile" style={{marginTop:"10px"}}>
@@ -55,44 +71,65 @@ class PostDetail extends Component {
           </div>
           <footer className="card-footer">
             <p className="card-footer-item">
-              <a href="#">@{this.props.post.author} </a>
+              @{this.props.post.author}
             </p>
             <p className="card-footer-item">
               <Moment format="MMM Do YY hh:mm" unix>{formatedTimeStamp}</Moment>
             </p>
             <Link to="/" className="card-footer-item">Edit</Link>
-            <a onClick={this.onDeleteClick.bind(this)} className="card-footer-item is-danger">Delete</a>
+            <a onClick={this.onPostDeleteClick} className="card-footer-item is-danger">Delete</a>
           </footer>
         </div>
 
         <section className="section" id="media">
           <h4 className="title">Coments</h4>
           <hr/>
-          <article className="media">
-            <div className="media-content">
-              <div className="content">
-                <p>
-                  <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
-                  <br/> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-                </p>
-              </div>
-            </div>
-          </article>
+
+          {this.props.comments.map((comment) => {
+
+            //Precalculamos la hora
+            let commentTimeStamp = 0
+            if(typeof comment.timestamp === 'number') commentTimeStamp = comment.timestamp.toString().slice(0,-3)
+
+            return (
+              <article key={comment.id} className="media">
+                <div className="media-content">
+                  <div className="content">
+                    <p>
+                      <strong>{comment.author}</strong> <small><Moment format="MMM Do YY hh:mm" unix>{commentTimeStamp}</Moment></small>
+                      <br/> {comment.body}
+                    </p>
+                  </div>
+                </div>
+                <div className="media-right">
+                  <button className="delete" onClick={() => this.onCommentDeleteClick(comment.id)} ></button>
+                </div>
+              </article>
+            )
+          })}
+
           <hr/>
           <article className="media">
             <div className="media-content">
+              <form onSubmit={handleSubmit(this.onCommentSubmit)}>
+              <div className="field">
+                <p className="control is-4 column" style={{padding:0}}>
+                  <Field className="input" type="text" name="author" placeholder="Author" type="text" component="input" />
+                </p>
+              </div>
               <div className="field">
                 <p className="control">
-                  <textarea className="textarea" placeholder="Add a comment..."></textarea>
+                  <Field className="textarea" name="body" placeholder="Add a comment..." component="textarea" />
                 </p>
               </div>
               <nav className="level">
                 <div className="level-left">
                   <div className="level-item">
-                    <a className="button is-info">Post comment</a>
+                    <button type="submit" className="button is-info">Post comment</button>
                   </div>
                 </div>
               </nav>
+              </form>
             </div>
           </article>
         </section>
@@ -102,9 +139,34 @@ class PostDetail extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  let tharr = state.posts.filter((pos)=>pos.id==ownProps.match.params.postid) //Viene de This ARRay
-  if(tharr.length == 0) return {post:{}}
-  else return {post:tharr[0]}
+  let tharr = state.posts.filter((pos)=>pos.id === ownProps.match.params.postid) //Viene de This ARRay
+  if(tharr.length === 0) return {post:{}, comments:[]}
+  else return {
+    post:tharr[0],
+    comments: state.comments,
+  }
 }
 
-export default connect(mapStateToProps, {getPost, deletePost,votePosPost,voteNegPost})(PostDetail)
+function validate(values){
+  const errors = {}
+
+  //Validamos los inputs desde 'values'
+  if(!values.author) {
+    errors.author = "Insert a username"
+  }
+
+  if(!values.body) {
+    errors.body = "Write a message"
+  }
+
+  //Si errors está vacio, el formulario está listo para enviarse
+  //Si errors tiene alguna propiedad, redux form asume que el formulario es inválido
+  return errors
+}
+
+export default reduxForm({
+  validate,
+  form: 'CommentsForm'
+})(
+  connect(mapStateToProps, {getPost, deletePost,votePosPost,voteNegPost, getComments, createComment, editComment, deleteComment})(PostDetail)
+)

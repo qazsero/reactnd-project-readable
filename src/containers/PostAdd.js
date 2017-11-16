@@ -3,8 +3,9 @@ import {connect} from 'react-redux'
 import {Field, reduxForm} from 'redux-form'
 import {bindActionCreators} from 'redux'
 import {Link} from 'react-router-dom'
-import {createPost, getCategories} from '../actions'
 import crypto from 'crypto'
+
+import {createPost, getCategories} from '../actions'
 
 class PostAdd extends Component {
 

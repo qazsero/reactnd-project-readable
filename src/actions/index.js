@@ -10,6 +10,11 @@ export const POST_DOWNVOTE = 'POST_DOWNVOTE'
 export const POST_CREATE = 'POST_CREATE'
 export const POST_DELETE = 'POST_DELETE'
 
+export const COMMENTS_GET = 'COMMENTS_GET'
+export const COMMENT_CREATE = 'COMMENT_CREATE'
+export const COMMENT_EDIT = 'COMMENT_EDIT'
+export const COMMENT_DELETE = 'COMMENT_DELETE'
+
 export const CAT_GET = 'CAT_GET'
 export const ORDER_SET = 'ORDER_SET'
 
@@ -105,6 +110,50 @@ export function deletePost(id, callback) {
     payload: id
   }
 }
+
+export function getComments(postId) {
+
+  const request = axios.get(ROOT_URL+'/posts/'+postId+'/comments')
+
+  return{
+    type: COMMENTS_GET,
+    payload: request
+  }
+}
+
+//Creamos un Post
+export function createComment(values, callback){
+
+  const request = axios.post(ROOT_URL+'/comments', values)
+
+  return{
+    type: COMMENT_CREATE,
+    payload: request
+  }
+}
+
+//Creamos un Post
+export function editComment(values, callback){
+
+  const request = axios.put(ROOT_URL+'/comments', values)
+
+  return{
+    type: COMMENT_EDIT,
+    payload: request
+  }
+}
+
+//Borramos un Post
+export function deleteComment(id) {
+
+  const request = axios.delete(ROOT_URL+'/comments/'+id)
+
+  return{
+    type: COMMENT_DELETE,
+    payload: id
+  }
+}
+
 
 //Estas funciones son ActionCreator, necesita devolver una acción,
 //un objeto con una propiedad `type`

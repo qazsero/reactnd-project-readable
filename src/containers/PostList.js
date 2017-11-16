@@ -17,7 +17,6 @@ class PostList extends Component {
 
     let orderedPostList //La lista final filtrada y ordenada
 
-
     //Alimentamos el objeto con el estado y filtramos por eliminados
     orderedPostList = this.props.posts.filter((p) => p.deleted !== true)
 
