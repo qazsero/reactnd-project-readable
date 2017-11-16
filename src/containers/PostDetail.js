@@ -5,7 +5,7 @@ import {Field, reduxForm} from 'redux-form'
 import {Link} from 'react-router-dom'
 import FontAwesome from 'react-fontawesome'
 import crypto from 'crypto'
-import {getPost, deletePost,votePosPost,voteNegPost, getComments, createComment, editComment, deleteComment} from '../actions'
+import {getPost, deletePost,votePosPost,voteNegPost, getComments, createComment, editComment, votePosComment, voteNegComment, deleteComment} from '../actions'
 
 class PostDetail extends Component {
 
@@ -93,6 +93,10 @@ class PostDetail extends Component {
 
             return (
               <article key={comment.id} className="media">
+                <div className="media-left text-center">
+                <h4 className="is-size-5" >{comment.voteScore}</h4>
+                <p>{comment.voteScore === 1 ? "vote":"vote"}</p>
+                </div>
                 <div className="media-content">
                   <div className="content">
                     <p>
@@ -102,7 +106,10 @@ class PostDetail extends Component {
                   </div>
                 </div>
                 <div className="media-right">
-                  <button className="delete" onClick={() => this.onCommentDeleteClick(comment.id)} ></button>
+                <a href="#" className="icon" onClick={() => this.props.votePosComment(comment.id)} ><i className="fa fa-thumbs-o-up"></i></a>
+                <a href="#" className="icon" onClick={() => this.props.voteNegComment(comment.id)} ><i className="fa fa-thumbs-o-down"></i></a>
+                <a href="#" className="icon" onClick={() => this.onCommentDeleteClick(comment.id)} ><i className="fa fa-pencil-square-o"></i></a>
+                <a href="#" className="icon" onClick={() => this.onCommentDeleteClick(comment.id)} ><i className="fa fa-trash"></i></a>
                 </div>
               </article>
             )
@@ -168,5 +175,5 @@ export default reduxForm({
   validate,
   form: 'CommentsForm'
 })(
-  connect(mapStateToProps, {getPost, deletePost,votePosPost,voteNegPost, getComments, createComment, editComment, deleteComment})(PostDetail)
+  connect(mapStateToProps, {getPost, deletePost,votePosPost,voteNegPost, getComments, createComment, votePosComment, voteNegComment, editComment, deleteComment})(PostDetail)
 )

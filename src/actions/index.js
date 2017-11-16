@@ -12,6 +12,8 @@ export const POST_DELETE = 'POST_DELETE'
 
 export const COMMENTS_GET = 'COMMENTS_GET'
 export const COMMENT_CREATE = 'COMMENT_CREATE'
+export const COMMENT_UPVOTE = 'COMMENT_UPVOTE'
+export const COMMENT_DOWNVOTE = 'COMMENT_DOWNVOTE'
 export const COMMENT_EDIT = 'COMMENT_EDIT'
 export const COMMENT_DELETE = 'COMMENT_DELETE'
 
@@ -64,7 +66,6 @@ export function voteNegPost(postId) {
     postId
   }
 }
-
 
 
 export function getCategories(){
@@ -129,6 +130,28 @@ export function createComment(values, callback){
   return{
     type: COMMENT_CREATE,
     payload: request
+  }
+}
+
+export function votePosComment(id) {
+
+  //Llamada api que lo actualice
+  axios.post(ROOT_URL+'/comments/'+id, {option:'upVote'})
+
+  return{
+    type: COMMENT_UPVOTE,
+    id
+  }
+}
+
+export function voteNegComment(id) {
+
+  //Llamada api que lo actualice
+  axios.post(ROOT_URL+'/comments/'+id, {option:'downVote'})
+
+  return{
+    type: COMMENT_DOWNVOTE,
+    id
   }
 }
 

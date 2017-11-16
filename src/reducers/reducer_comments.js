@@ -1,4 +1,4 @@
-import {COMMENTS_GET, COMMENT_CREATE, COMMENT_EDIT, COMMENT_DELETE} from '../actions/index'
+import {COMMENTS_GET, COMMENT_CREATE, COMMENT_EDIT, COMMENT_UPVOTE, COMMENT_DOWNVOTE, COMMENT_DELETE} from '../actions/index'
 
 export default function (state=[], action) {
   switch(action.type) {
@@ -10,6 +10,10 @@ export default function (state=[], action) {
       return state.filter((spost) => spost.id !== action.payload)
     case COMMENT_DELETE:
       return state.filter((spost) => spost.id !== action.payload)
+    case COMMENT_UPVOTE:
+      return state.map((spost) => spost.id === action.id ? {...spost, voteScore: spost.voteScore+1} : spost)
+    case COMMENT_DOWNVOTE:
+      return state.map((spost) => spost.id === action.id ? {...spost, voteScore: spost.voteScore-1} : spost)
     default:
       return state
   }
