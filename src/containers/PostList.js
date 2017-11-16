@@ -8,7 +8,7 @@ import {bindActionCreators} from 'redux'
 class PostList extends Component {
 
   componentDidMount(){
-    if(this.props.posts.length === 0){this.props.getPosts()}
+    this.props.getPosts()
     if(this.props.categories.length === 0){this.props.getCategories()}
   }
 
@@ -40,7 +40,8 @@ class PostList extends Component {
               return a.timestamp - b.timestamp
             })
           break
-
+        default:
+          return false
       }
     }
 

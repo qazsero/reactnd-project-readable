@@ -3,7 +3,6 @@ import Moment from 'react-moment'
 import _ from 'lodash'
 import {connect} from 'react-redux'
 import {Field, reduxForm} from 'redux-form'
-import {Link} from 'react-router-dom'
 import FontAwesome from 'react-fontawesome'
 import crypto from 'crypto'
 import {getPost, deletePost,votePosPost,voteNegPost, editPost, getComments, createComment, editComment, votePosComment, voteNegComment, deleteComment} from '../actions'
@@ -166,7 +165,7 @@ class PostDetail extends Component {
               <form onSubmit={handleSubmit(this.onCommentSubmit)}>
               <div className="field">
                 <p className="control is-4 column" style={{padding:0}}>
-                  <Field className="input" type="text" name="author" placeholder="Author" type="text" component="input" />
+                  <Field className="input" type="text" name="author" placeholder="Author" component="input" />
                 </p>
               </div>
               <div className="field">

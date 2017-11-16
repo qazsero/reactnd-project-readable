@@ -116,7 +116,7 @@ export function editPost(id, values){
 export function deletePost(id, callback) {
 
   const request = axios.delete(ROOT_URL+'/posts/'+id)
-    .then(() => callback())
+  request.then(() => callback())
 
   return{
     type: POST_DELETE,
@@ -181,7 +181,7 @@ export function editComment(id, values){
 //Borramos un Post
 export function deleteComment(id) {
 
-  const request = axios.delete(ROOT_URL+'/comments/'+id)
+  axios.delete(ROOT_URL+'/comments/'+id)
 
   return{
     type: COMMENT_DELETE,
