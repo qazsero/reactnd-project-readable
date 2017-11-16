@@ -50,8 +50,8 @@ class PostComment extends Component {
     return (
       <article className="media">
         <div className="media-left text-center">
-        <h4 className="is-size-5" >{comment.voteScore}</h4>
-        <p>{comment.voteScore === 1 ? "vote":"vote"}</p>
+          <h4 className="is-size-5" >{comment.voteScore}</h4>
+          <p>{comment.voteScore === 1 ? "vote":"vote"}</p>
         </div>
         <div className="media-content">
           <div className="content">

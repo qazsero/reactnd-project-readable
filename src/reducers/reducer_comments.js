@@ -7,13 +7,13 @@ export default function (state=[], action) {
     case COMMENTS_GET:
       return action.payload.data
     case COMMENT_EDIT:
-      return state.map((spost) => spost.id === action.payload.data.id ? action.payload.data : spost)
+      return state.map((scomment) => scomment.id === action.payload.data.id ? action.payload.data : scomment)
     case COMMENT_DELETE:
-      return state.filter((spost) => spost.id !== action.payload)
+      return state.filter((scomment) => scomment.id !== action.payload)
     case COMMENT_UPVOTE:
-      return state.map((spost) => spost.id === action.id ? {...spost, voteScore: spost.voteScore+1} : spost)
+      return state.map((scomment) => scomment.id === action.id ? {...scomment, voteScore: scomment.voteScore+1} : scomment)
     case COMMENT_DOWNVOTE:
-      return state.map((spost) => spost.id === action.id ? {...spost, voteScore: spost.voteScore-1} : spost)
+      return state.map((scomment) => scomment.id === action.id ? {...scomment, voteScore: scomment.voteScore-1} : scomment)
     default:
       return state
   }

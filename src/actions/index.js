@@ -8,6 +8,7 @@ export const POSTS_GET = 'POSTS_GET'
 export const POST_UPVOTE = 'POST_UPVOTE'
 export const POST_DOWNVOTE = 'POST_DOWNVOTE'
 export const POST_CREATE = 'POST_CREATE'
+export const POST_EDIT = 'POST_EDIT'
 export const POST_DELETE = 'POST_DELETE'
 
 export const COMMENTS_GET = 'COMMENTS_GET'
@@ -96,6 +97,17 @@ export function createPost(values, callback){
 
   return{
     type: POST_CREATE,
+    payload: request
+  }
+}
+
+//Creamos un Post
+export function editPost(id, values){
+
+  const request = axios.put(ROOT_URL+'/posts/'+id, values)
+
+  return{
+    type: POST_EDIT,
     payload: request
   }
 }
