@@ -1,6 +1,6 @@
 Entrega del segundo proyecto del [React Nanodegree](https://www.udacity.com/course/react-nanodegree--nd019) ofrecido por [Udacity](https://www.udacity.com)
 
-El trabajo consiste en crear un clon de [HackerNews](https://news.ycombinator.com/), un portal de mensajes con comentarios. Usuarios puedes ver, crear, editar, votar y eliminar mensajes. Cada mensaje puede tener comentarios. Usuarios pueden ver crear y elimintar comentarios. Este proyecto no tiene autenticación.
+El trabajo consiste en crear un clon de [HackerNews](https://news.ycombinator.com/), un portal de mensajes con comentarios. Usuarios pueden ver, crear, editar, votar y eliminar publicaciones. Cada publicación puede tener comentarios. Usuarios pueden ver, crear, editar y eliminar comentarios. Este proyecto no tiene autenticación.
 
 
 ## Requisitos previos
