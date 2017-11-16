@@ -7,6 +7,8 @@ import FontAwesome from 'react-fontawesome'
 import crypto from 'crypto'
 import {getPost, deletePost,votePosPost,voteNegPost, getComments, createComment, editComment, votePosComment, voteNegComment, deleteComment} from '../actions'
 
+import PostComment from '../components/PostComment'
+
 class PostDetail extends Component {
 
   componentDidMount(){
@@ -22,8 +24,8 @@ class PostDetail extends Component {
     })
   }
 
-  onCommentDeleteClick = (commid) => {
-    this.props.deleteComment(commid)
+  onCommentEditClick = (commid) => {
+
   }
 
   onCommentSubmit = (values) => {
@@ -39,7 +41,7 @@ class PostDetail extends Component {
     const { handleSubmit } = this.props;
     let formatedTimeStamp = 0
     if(typeof this.props.post.timestamp === 'number') formatedTimeStamp = this.props.post.timestamp.toString().slice(0,-3)
-
+    
     return(
       <div className="column is-10 is-offset-1">
         <div className="card">
@@ -85,35 +87,15 @@ class PostDetail extends Component {
           <h4 className="title">Coments</h4>
           <hr/>
 
-          {this.props.comments.map((comment) => {
-
-            //Precalculamos la hora
-            let commentTimeStamp = 0
-            if(typeof comment.timestamp === 'number') commentTimeStamp = comment.timestamp.toString().slice(0,-3)
-
-            return (
-              <article key={comment.id} className="media">
-                <div className="media-left text-center">
-                <h4 className="is-size-5" >{comment.voteScore}</h4>
-                <p>{comment.voteScore === 1 ? "vote":"vote"}</p>
-                </div>
-                <div className="media-content">
-                  <div className="content">
-                    <p>
-                      <strong>{comment.author}</strong> <small><Moment format="MMM Do YY hh:mm" unix>{commentTimeStamp}</Moment></small>
-                      <br/> {comment.body}
-                    </p>
-                  </div>
-                </div>
-                <div className="media-right">
-                <a href="#" className="icon" onClick={() => this.props.votePosComment(comment.id)} ><i className="fa fa-thumbs-o-up"></i></a>
-                <a href="#" className="icon" onClick={() => this.props.voteNegComment(comment.id)} ><i className="fa fa-thumbs-o-down"></i></a>
-                <a href="#" className="icon" onClick={() => this.onCommentDeleteClick(comment.id)} ><i className="fa fa-pencil-square-o"></i></a>
-                <a href="#" className="icon" onClick={() => this.onCommentDeleteClick(comment.id)} ><i className="fa fa-trash"></i></a>
-                </div>
-              </article>
-            )
-          })}
+          {this.props.comments.map((comment) => <PostComment
+                                                  key={comment.id}
+                                                  comment={comment}
+                                                  votePosComment={this.props.votePosComment}
+                                                  voteNegComment={this.props.voteNegComment}
+                                                  deleteComment={this.props.deleteComment}
+                                                  updateComment={this.props.editComment}
+                                                />
+          )}
 
           <hr/>
           <article className="media">

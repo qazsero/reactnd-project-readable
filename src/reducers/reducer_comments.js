@@ -7,7 +7,7 @@ export default function (state=[], action) {
     case COMMENTS_GET:
       return action.payload.data
     case COMMENT_EDIT:
-      return state.filter((spost) => spost.id !== action.payload)
+      return state.map((spost) => spost.id === action.payload.data.id ? action.payload.data : spost)
     case COMMENT_DELETE:
       return state.filter((spost) => spost.id !== action.payload)
     case COMMENT_UPVOTE:

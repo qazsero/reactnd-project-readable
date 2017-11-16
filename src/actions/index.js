@@ -156,9 +156,9 @@ export function voteNegComment(id) {
 }
 
 //Creamos un Post
-export function editComment(values, callback){
+export function editComment(id, values){
 
-  const request = axios.put(ROOT_URL+'/comments', values)
+  const request = axios.put(ROOT_URL+'/comments/'+id, values)
 
   return{
     type: COMMENT_EDIT,
