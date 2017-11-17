@@ -1,4 +1,4 @@
-import {ORDER_SET} from '../actions/index'
+import {ORDER_SET} from '../actions/types'
 
 export default function (state='votes', action) {
   switch(action.type) {

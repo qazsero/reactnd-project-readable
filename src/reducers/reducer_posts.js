@@ -1,4 +1,4 @@
-import {POST_GET,POSTS_GET,POST_UPVOTE,POST_DOWNVOTE, POST_CREATE, POST_EDIT, POST_DELETE} from '../actions/index'
+import {POST_GET,POSTS_GET,POST_UPVOTE,POST_DOWNVOTE, POST_CREATE, POST_EDIT, POST_DELETE} from '../actions/types'
 
 export default function (state=[], action) {
   switch(action.type) {

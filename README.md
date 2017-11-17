@@ -35,3 +35,9 @@ npm start
 ```
 
 y en pocos instantes se abre el navegador por defecto con la página web cargada.
+
+
+## Licencia
+
+El contenido de este repositorio está licenciado bajo la
+[Licencia de atribución Creative Commons](http://creativecommons.org/licenses/by/3.0/us/)

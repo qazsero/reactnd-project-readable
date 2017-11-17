@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import Moment from 'react-moment'
+import {Link} from 'react-router-dom'
 import _ from 'lodash'
 import {connect} from 'react-redux'
 import {Field, reduxForm} from 'redux-form'
 import FontAwesome from 'react-fontawesome'
 import crypto from 'crypto'
-import {getPost, deletePost,votePosPost,voteNegPost, editPost, getComments, createComment, editComment, votePosComment, voteNegComment, deleteComment} from '../actions'
+import * as actions from '../actions'
 
 import PostComment from '../components/PostComment'
 
@@ -86,6 +87,15 @@ class PostDetail extends Component {
     const { handleSubmit, post } = this.props;
     let formatedTimeStamp = 0
     if(typeof post.timestamp === 'number') formatedTimeStamp = post.timestamp.toString().slice(0,-3)
+
+    //Comprobamos si la id del post existe
+    if(post.deleted===true || _.isEmpty(post)){
+      return (
+        <div>
+          <h3>This post has been deleted. <Link to="/">Go back</Link></h3>
+        </div>
+      )
+    }
 
     return(
       <div className="column is-10 is-offset-1">
@@ -219,5 +229,5 @@ export default reduxForm({
   validate,
   form: 'CommentsForm'
 })(
-  connect(mapStateToProps, {getPost, deletePost,votePosPost,voteNegPost, editPost, getComments, createComment, votePosComment, voteNegComment, editComment, deleteComment})(PostDetail)
+  connect(mapStateToProps, actions)(PostDetail)
 )

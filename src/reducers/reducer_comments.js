@@ -1,4 +1,4 @@
-import {COMMENTS_GET, COMMENT_CREATE, COMMENT_EDIT, COMMENT_UPVOTE, COMMENT_DOWNVOTE, COMMENT_DELETE} from '../actions/index'
+import {COMMENTS_GET, COMMENT_CREATE, COMMENT_EDIT, COMMENT_UPVOTE, COMMENT_DOWNVOTE, COMMENT_DELETE} from '../actions/types'
 
 export default function (state=[], action) {
   switch(action.type) {

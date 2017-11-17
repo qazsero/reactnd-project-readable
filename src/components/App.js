@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Route, NavLink, Switch} from 'react-router-dom'
+import {Route, NavLink, Switch, Link} from 'react-router-dom'
 import PostList from '../containers/PostList'
 import PostAdd from '../containers/PostAdd'
 import PostDetail from '../containers/PostDetail'
@@ -16,9 +16,9 @@ class App extends Component {
               <header className="nav">
                 <div className="container">
                   <div className="nav-left">
-                    <a className="nav-item">
+                    <Link to="/" className="nav-item">
                       <img src="/Readable-logo.svg" alt="Logo" />
-                    </a>
+                    </Link>
                   </div>
                   <span className="nav-toggle">
                     <span></span>

@@ -78,12 +78,12 @@ class PostAdd extends Component {
             </div>
             <div className="field-body">
               <div className="field">
-                <p className="control is-expanded has-icons-left">
+                <div className="control is-expanded has-icons-left">
                   <Field name="author" placeholder="Name" component={this.renderInput} />
                   <span className="icon is-small is-left">
                     <i className="fa fa-user"></i>
                   </span>
-                </p>
+                </div>
               </div>
             </div>
           </div>
@@ -147,13 +147,10 @@ class PostAdd extends Component {
 
 
 
-function mapStateToProps(state){
-  //Lo que sea devuelto se mostrara como props
-  //dentro de PostList
-  return {
-    categories: state.categories
-  }
+function mapStateToProps({categories}){
+  return {categories}
 }
+
 
 function validate(values){
   const errors = {}

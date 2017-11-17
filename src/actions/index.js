@@ -1,25 +1,8 @@
 import axios from 'axios'
+import {POST_GET,POSTS_GET,POST_UPVOTE, POST_DOWNVOTE, CAT_GET, ORDER_SET,POST_CREATE, POST_EDIT,POST_DELETE,COMMENTS_GET,COMMENT_CREATE,COMMENT_UPVOTE,COMMENT_DOWNVOTE,COMMENT_EDIT,COMMENT_DELETE} from './types'
 
 const AUTH_HEADER = 'github:Qazsero'
 const ROOT_URL = 'http://localhost:3001'
-
-export const POST_GET = 'POST_GET'
-export const POSTS_GET = 'POSTS_GET'
-export const POST_UPVOTE = 'POST_UPVOTE'
-export const POST_DOWNVOTE = 'POST_DOWNVOTE'
-export const POST_CREATE = 'POST_CREATE'
-export const POST_EDIT = 'POST_EDIT'
-export const POST_DELETE = 'POST_DELETE'
-
-export const COMMENTS_GET = 'COMMENTS_GET'
-export const COMMENT_CREATE = 'COMMENT_CREATE'
-export const COMMENT_UPVOTE = 'COMMENT_UPVOTE'
-export const COMMENT_DOWNVOTE = 'COMMENT_DOWNVOTE'
-export const COMMENT_EDIT = 'COMMENT_EDIT'
-export const COMMENT_DELETE = 'COMMENT_DELETE'
-
-export const CAT_GET = 'CAT_GET'
-export const ORDER_SET = 'ORDER_SET'
 
 //Con esto autenticamos el server
 axios.defaults.headers.common['Authorization'] = AUTH_HEADER;

@@ -1,0 +1,17 @@
+export const POST_GET = 'POST_GET'
+export const POSTS_GET = 'POSTS_GET'
+export const POST_UPVOTE = 'POST_UPVOTE'
+export const POST_DOWNVOTE = 'POST_DOWNVOTE'
+export const POST_CREATE = 'POST_CREATE'
+export const POST_EDIT = 'POST_EDIT'
+export const POST_DELETE = 'POST_DELETE'
+
+export const COMMENTS_GET = 'COMMENTS_GET'
+export const COMMENT_CREATE = 'COMMENT_CREATE'
+export const COMMENT_UPVOTE = 'COMMENT_UPVOTE'
+export const COMMENT_DOWNVOTE = 'COMMENT_DOWNVOTE'
+export const COMMENT_EDIT = 'COMMENT_EDIT'
+export const COMMENT_DELETE = 'COMMENT_DELETE'
+
+export const CAT_GET = 'CAT_GET'
+export const ORDER_SET = 'ORDER_SET'
