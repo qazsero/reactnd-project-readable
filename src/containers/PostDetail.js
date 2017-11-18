@@ -89,7 +89,7 @@ class PostDetail extends Component {
 
     //Post Object filtering
     let post = {}
-    let activePost = this.props.posts.filter((p) => p.id===this.props.match.params.postid)
+    let activePost = this.props.posts.filter((p) => p.id===this.props.match.params.postid && p.deleted === false)
     if(activePost.length === 1) post = activePost[0]
 
     //Comments filtering
