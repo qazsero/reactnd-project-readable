@@ -20,7 +20,6 @@ class PostList extends Component {
 
 
   renderPostRows(orderedPostList){
-    console.log(orderedPostList)
     return orderedPostList.map((post) => (
         <PostRow
           key={post.id}
