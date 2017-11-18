@@ -1,9 +1,10 @@
 import {POST_GET,POSTS_GET,POST_UPVOTE,POST_DOWNVOTE, POST_CREATE, POST_EDIT, POST_DELETE} from '../actions/types'
+import _ from 'lodash'
 
 export default function (state=[], action) {
   switch(action.type) {
     case POST_GET:
-      if(typeof action.payload.data === 'undefined') return []
+      if(typeof action.payload.data === 'undefined' || _.isEmpty(action.payload.data)) return []
       let nstate = state.filter((spost) => spost.id !== action.payload.data.id)
       return [...nstate, action.payload.data]
     case POST_CREATE:
