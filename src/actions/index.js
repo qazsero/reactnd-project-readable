@@ -172,6 +172,5 @@ export function deleteComment(id) {
   }
 }
 
-
 //Estas funciones son ActionCreator, necesita devolver una acción,
 //un objeto con una propiedad `type`

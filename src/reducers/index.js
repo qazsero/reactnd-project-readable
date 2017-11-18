@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   comments: CommentsReducer,
   categories: CategoriesReducer,
   postOrder: PostOrderReducer,
-  form: formReducer
+  form: formReducer,
 })
 
 export default rootReducer

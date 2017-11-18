@@ -17,7 +17,7 @@ class PostDetail extends Component {
     editBody: '',
   }
 
-  componentDidMount(){
+  componentWillMount(){
     let postid = this.props.match.params.postid
     this.props.getPost(postid)
     this.props.getComments(postid)
@@ -84,18 +84,29 @@ class PostDetail extends Component {
   }
 
   render(){
-    const { handleSubmit, post } = this.props;
-    let formatedTimeStamp = 0
-    if(typeof post.timestamp === 'number') formatedTimeStamp = post.timestamp.toString().slice(0,-3)
+    const { handleSubmit} = this.props;
+
+
+    //Post Object filtering
+    let post = {}
+    let activePost = this.props.posts.filter((p) => p.id===this.props.match.params.postid)
+    if(activePost.length === 1) post = activePost[0]
+
+    //Comments filtering
+    let comments = this.props.comments.filter((c) => c.parentId === this.props.match.params.postid)
 
     //Comprobamos si la id del post existe
-    if(post.deleted===true || _.isEmpty(post)){
+    if(_.isEmpty(post)){
       return (
         <div>
           <h3>This post has been deleted. <Link to="/">Go back</Link></h3>
         </div>
       )
     }
+
+    //Timestamp formating
+    let formatedTimeStamp = 0
+    if(typeof post.timestamp === 'number') formatedTimeStamp = post.timestamp.toString().slice(0,-3)
 
     return(
       <div className="column is-10 is-offset-1">
@@ -159,14 +170,14 @@ class PostDetail extends Component {
           <h4 className="title">Comments</h4>
           <hr/>
 
-          {this.props.comments.map((comment) => <PostComment
-                                                  key={comment.id}
-                                                  comment={comment}
-                                                  votePosComment={this.props.votePosComment}
-                                                  voteNegComment={this.props.voteNegComment}
-                                                  deleteComment={this.props.deleteComment}
-                                                  updateComment={this.props.editComment}
-                                                />
+          {comments.map((comment) => <PostComment
+                                        key={comment.id}
+                                        comment={comment}
+                                        votePosComment={this.props.votePosComment}
+                                        voteNegComment={this.props.voteNegComment}
+                                        deleteComment={this.props.deleteComment}
+                                        updateComment={this.props.editComment}
+                                      />
           )}
 
           <hr/>
@@ -200,10 +211,8 @@ class PostDetail extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  let tharr = state.posts.filter((pos)=>pos.id === ownProps.match.params.postid) //Viene de This ARRay
-  if(tharr.length === 0) return {post:{}, comments:[]}
-  else return {
-    post:tharr[0],
+  return {
+    posts:state.posts,
     comments: state.comments,
   }
 }

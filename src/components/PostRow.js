@@ -65,7 +65,7 @@ class PostRow extends Component {
                   <h4>{post.title}</h4>
                 </Link>
               </div>
-              <nav className="level is-mobile">
+              <nav className="level">
                 <div className="level-left">
                   <span className="level-item"><i className="fa fa-clock-o"></i></span><span className="level-item"><Moment fromNow unix>{post.timestamp.toString().slice(0, -3)}</Moment></span><span className="level-item">by</span><span className="level-item"><strong>{post.author}</strong></span>
                   <a className="level-item" onClick={() => this.props.upvote(post.id)} >
@@ -82,6 +82,9 @@ class PostRow extends Component {
                   </a>
                 </div>
               </nav>
+            </div>
+            <div className="media-right" >
+              <span className="icon is-small" ><i className="fa fa-comments-o"></i>{this.props.commentCount}</span>
             </div>
           </article>
         </div>
