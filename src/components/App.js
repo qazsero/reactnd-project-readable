@@ -36,18 +36,6 @@ class App extends Component {
                 </div>
               </header>
             </div>
-            {/*
-            <div className="hero-body">
-              <div className="container has-text-centered">
-                <h1 className="title">
-                  Latest News
-                </h1>
-                <h2 className="subtitle">
-                  All Categories
-                </h2>
-              </div>
-            </div>
-            */}
           </section>
           <div className="section">
             <div className="container">
