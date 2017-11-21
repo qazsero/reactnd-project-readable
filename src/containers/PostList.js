@@ -34,6 +34,11 @@ class PostList extends Component {
     )
   }
 
+  catCssClass = (cat) => {
+    let openModal = this.props.match.params.catPath==cat ? 'is-active' : ''
+    return `panel-block ${openModal}`
+  }
+
   render(){
     let orderedPostList //La lista final filtrada y ordenada
 
@@ -106,14 +111,14 @@ class PostList extends Component {
                 <p className="panel-heading">
                   Categories
                 </p>
-                <Link className="panel-block is-active" to="/">
+                <Link className={this.catCssClass()} to="/">
                   <span className="panel-icon">
                     <i className="fa fa-book"></i>
                   </span>
                   All
                 </Link>
                 {this.props.categories.map((cats) => (
-                  <Link key={cats.path} className="panel-block is-active" to={`/category/${cats.path}`}>
+                  <Link key={cats.path} className={this.catCssClass(cats.path)} to={`/category/${cats.path}`}>
                     <span className="panel-icon">
                       <i className="fa fa-book"></i>
                     </span>
