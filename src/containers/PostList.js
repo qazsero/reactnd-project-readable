@@ -35,7 +35,7 @@ class PostList extends Component {
   }
 
   catCssClass = (cat) => {
-    let openModal = this.props.match.params.catPath==cat ? 'is-active' : ''
+    let openModal = this.props.match.params.catPath===cat ? 'is-active' : ''
     return `panel-block ${openModal}`
   }
 
