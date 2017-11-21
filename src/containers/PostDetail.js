@@ -24,8 +24,13 @@ class PostDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(!_.isEmpty(nextProps.post)){
-      this.setState({editTitle:nextProps.post.title, editBody:nextProps.post.body})
+    if(!_.isEmpty(nextProps.posts)){
+      let post = {}
+      let activePost = nextProps.posts.filter((p) => p.id===this.props.match.params.postid && p.deleted === false)
+      if(activePost.length === 1){
+        post = activePost[0]
+        this.setState({editTitle:post.title, editBody:post.body})
+      }
     }
   }
 
